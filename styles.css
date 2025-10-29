@@ -1,0 +1,347 @@
+/* =========================================================
+   0) DESIGN TOKENS
+   - Centralized colors, radii, shadows used across the UI.
+   - Makes the theme easy to tweak and keeps a consistent look.
+   ========================================================= */
+:root{
+    --green-700:#2E7D32;   /* primary buttons, accents */
+    --green-600:#388E3C;   /* hover/secondary green */
+    --red-600:#D32F2F;     /* destructive actions */
+    --yellow-500:#FBC02D;  /* highlights (e.g., High Score) */
+
+    --text:#1F2937;        /* default dark text on white cards */
+    --muted:#6B7280;       /* secondary text */
+    --card:#FFFFFF;        /* panel/card background */
+    --border:#E5E7EB;      /* table lines, card borders */
+
+    --radius:14px;         /* rounded corners for panels/buttons */
+    --shadow:0 1px 2px rgba(0,0,0,.06); /* subtle elevation */
+}
+
+/* =========================================================
+   1) GLOBAL BASE & ACCESSIBILITY
+   ========================================================= */
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+
+body{
+    background: linear-gradient(180deg, #2E7D32 0%, #2A6F30 60%, #265F2B 100%);
+    color:#EAF4EC;
+    font:16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Visible focus ring for accessibility */
+:focus{
+    outline:3px solid var(--yellow-500);
+    outline-offset:2px;
+}
+
+/* Screen-reader only text */
+.visually-hidden{
+    position:absolute !important;
+    width:1px; height:1px; padding:0; margin:0; border:0;
+    overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap;
+}
+
+/* Skip link for keyboard navigation */
+.skip{
+    position:absolute; left:-9999px; top:8px;
+    background:#fff; color:#000; padding:.5rem 1rem;
+    border-radius:6px; z-index:1000;
+}
+.skip:focus{ left:8px; }
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+}
+
+/* =========================================================
+   2) HEADER / FOOTER
+   ========================================================= */
+.site-header{
+    background:transparent;
+    color:#fff;
+    padding:28px 16px 22px;
+    border-bottom:3px solid var(--yellow-500);
+    text-align:center;
+}
+.site-header h1{
+    margin:0 0 6px;
+    font-weight:700;
+    letter-spacing:.3px;
+}
+.site-header .sub{
+    margin:0;
+    opacity:.9;
+}
+
+.site-footer{
+    text-align:center;
+    color:#EAF4EC;
+    font-size:14px;
+    margin:24px 0 32px;
+}
+
+/* =========================================================
+   3) LAYOUT PANELS
+   ========================================================= */
+.container{
+    max-width:1100px;
+    margin:0 auto;
+    padding:20px 16px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:20px;
+}
+@media (max-width: 860px){
+    .container{ grid-template-columns: 1fr; }
+}
+
+.panel{
+    background:var(--card);
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:16px;
+}
+.panel-title{
+    margin:0 0 12px;
+    color:var(--green-700);
+    font-weight:700;
+    text-align:center;
+}
+
+/* =========================================================
+   4) BUTTONS & BADGES
+   ========================================================= */
+.btn{
+    appearance:none;
+    border:none;
+    border-radius:10px;
+    padding:10px 16px;
+    font-weight:600;
+    cursor:pointer;
+}
+.btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+.btn-primary{
+    background:var(--green-700);
+    color:#fff;
+}
+.btn-primary:hover{ background:#255f28; }
+
+.btn-outline{
+    background:#fff;
+    color:var(--green-700);
+    border:2px solid var(--green-700);
+}
+.btn-outline:hover{ background:#f3faf3; }
+
+.btn-danger{
+    background:var(--red-600);
+    color:#fff;
+}
+.btn-danger:hover{ background:#b71c1c; }
+
+.badge{
+    display:inline-block;
+    margin-left:8px;
+    padding:6px 10px;
+    background:#f6f6f6;
+    border:1px solid var(--border);
+    border-radius:999px;
+    font-weight:600;
+    color:var(--muted);
+}
+
+.controls-row{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+.controls-row--bottom{ margin-top:24px; }
+
+.hint{
+    margin:10px 0 0;
+    color:var(--muted);
+    font-size:14px;
+    text-align:center;
+}
+
+/* =========================================================
+   5) DICE AREA
+   ========================================================= */
+.dice-panel{ text-align:center; }
+
+.dice-block{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:360px;
+}
+
+.dice-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    align-items:center;
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.dice-item{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:12px;
+    justify-content:center;
+}
+
+.die{
+    width:92px;
+    height:92px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background-image:url('./dice1.jpg');
+    background-size:600% 100%;
+    background-position:0 0;
+    box-shadow:var(--shadow);
+}
+
+/* Held dice: stop animation + green border */
+.die.is-held {
+    animation: none !important;
+    filter: grayscale(0.2) brightness(0.95);
+    border-color: var(--green-700);
+    box-shadow: 0 0 0 2px rgba(46,125,50,.25);
+}
+
+/* Rolling animation */
+@keyframes roll{
+    0%  { background-position:0% 0; }
+    100%{ background-position:-600% 0; }
+}
+
+.hold-toggle{
+    padding:8px 12px;
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--text);
+    border-radius:999px;
+    cursor:pointer;
+    transition: background .15s, color .15s, border-color .15s;
+}
+.hold-toggle:hover{ background:#fafafa; }
+.hold-toggle.is-held{
+    background:#e8f7ea;
+    border-color:var(--green-700);
+    color:var(--green-700);
+}
+
+@media (max-width:600px){
+    .die{ width:72px; height:72px; }
+    .btn{ padding:10px 12px; min-width:110px; }
+}
+
+/* =========================================================
+   6) SCOREBOARD TABLE
+   ========================================================= */
+.scoreboard .high-score{
+    font-size:20px;
+    font-weight:700;
+    color:var(--yellow-500);
+    text-align:center;
+    margin-bottom:12px;
+}
+
+.score-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:15px;
+}
+.score-table th,
+.score-table td{
+    border-bottom:1px solid var(--border);
+    padding:10px 12px;
+    text-align:left;
+}
+.score-table thead th{
+    background:#FAFAFA;
+}
+
+.score-table tr.sep td{
+    border-top:2px solid var(--border);
+    font-weight:600;
+}
+.score-table tr.total td{
+    border-top:2px solid var(--green-700);
+    font-weight:700;
+    color:var(--green-700);
+}
+
+.muted{ color:var(--muted); }
+
+/* =========================================================
+   7) SELECTABLE SCORE CELLS (highlighted options)
+   ========================================================= */
+.score-cell.selectable {
+    color:#c62828;
+    font-weight:700;
+    background-color:#ffecec;
+    border:2px solid #c62828;
+    border-radius:6px;
+    cursor:pointer;
+    text-align:center;
+    transition:all 0.2s ease;
+    padding:4px 6px;
+}
+.score-cell.selectable:hover {
+    background-color:#ffdddd;
+    box-shadow:0 0 4px rgba(198,40,40,0.5);
+    transform:scale(1.03);
+}
+
+/* =========================================================
+   8) SCORECARD TOOLTIP (explanation pop-ups)
+   ========================================================= */
+.score-table td.cat-name {
+    position:relative;
+    cursor:help;
+}
+
+/* Tooltip bubble */
+.score-table td.cat-name[data-tip]:hover::after {
+    content:attr(data-tip);
+    position:absolute;
+    left:0;
+    top:100%;
+    margin-top:6px;
+    min-width:220px;
+    max-width:360px;
+    background:#111827;
+    color:#fff;
+    font-size:12px;
+    line-height:1.4;
+    padding:8px 10px;
+    border-radius:8px;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+    z-index:10;
+    white-space:normal;
+}
+
+/* Small tooltip arrow */
+.score-table td.cat-name[data-tip]:hover::before {
+    content:"";
+    position:absolute;
+    left:12px;
+    top:calc(100% - 4px);
+    border:6px solid transparent;
+    border-bottom-color:#111827;
+}

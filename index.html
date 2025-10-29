@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yatzy – Single Player Game</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+<!-- =========================
+     HEADER SECTION
+     Displays the game title and description.
+     Meets assignment's UI design requirement.
+     ========================= -->
+<header class="site-header">
+    <h1>Yatzy</h1>
+    <p class="sub">Single Player · Roll · Hold · Score · Beat the High Score</p>
+</header>
+
+<!-- =========================
+     MAIN CONTAINER
+     Two main panels:
+     - Left: dice area and controls
+     - Right: scoreboard with categories
+     Responsive layout handled in CSS
+     ========================= -->
+<main class="container">
+
+    <!-- ===== LEFT PANEL : Dice + Controls ===== -->
+    <section class="panel dice-panel">
+        <!-- Dice display area (5 dice + hold buttons) -->
+        <div class="dice-block">
+            <div class="dice-list" role="group" aria-label="Dice Area">
+                <!-- Each dice-item = one die + hold button -->
+                <div class="dice-item">
+                    <div class="die" data-index="1" aria-label="Die 1"></div>
+                    <button class="hold-toggle" data-for="1" aria-pressed="false">Hold</button>
+                </div>
+                <div class="dice-item">
+                    <div class="die" data-index="2" aria-label="Die 2"></div>
+                    <button class="hold-toggle" data-for="2" aria-pressed="false">Hold</button>
+                </div>
+                <div class="dice-item">
+                    <div class="die" data-index="3" aria-label="Die 3"></div>
+                    <button class="hold-toggle" data-for="3" aria-pressed="false">Hold</button>
+                </div>
+                <div class="dice-item">
+                    <div class="die" data-index="4" aria-label="Die 4"></div>
+                    <button class="hold-toggle" data-for="4" aria-pressed="false">Hold</button>
+                </div>
+                <div class="dice-item">
+                    <div class="die" data-index="5" aria-label="Die 5"></div>
+                    <button class="hold-toggle" data-for="5" aria-pressed="false">Hold</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Control buttons: required for user interaction -->
+        <div class="controls-row controls-row--bottom">
+            <button id="btn-roll" class="btn btn-primary">Roll Dice</button>
+            <button id="btn-end-turn" class="btn btn-outline">End Turn</button>
+            <button id="btn-end" class="btn btn-danger">End Game</button>
+            <button id="btn-reset" class="btn btn-outline">Reset</button>
+            <span id="rolls-indicator" class="badge" aria-live="polite">Rolls Left: 3</span>
+        </div>
+
+        <p class="hint">
+            Roll up to three times per turn, hold any dice you want, and fill in a score category.<br/>
+            The highest total after all 13 categories wins!
+        </p>
+    </section>
+
+    <!-- ===== RIGHT PANEL : Scoreboard ===== -->
+    <section class="panel scoreboard">
+        <h2 class="panel-title">Scorecard</h2>
+
+        <!-- Persistent high score display (uses localStorage) -->
+        <div class="high-score">
+            🏆 High Score: <span id="high-score">0</span>
+        </div>
+
+        <!-- Score table matches Yatzy categories -->
+        <table class="score-table">
+            <thead>
+            <tr><th>Category</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+            <!-- Upper Section -->
+            <tr><td>Ones</td><td class="score-cell" data-cat="Ones">—</td></tr>
+            <tr><td>Twos</td><td class="score-cell" data-cat="Twos">—</td></tr>
+            <tr><td>Threes</td><td class="score-cell" data-cat="Threes">—</td></tr>
+            <tr><td>Fours</td><td class="score-cell" data-cat="Fours">—</td></tr>
+            <tr><td>Fives</td><td class="score-cell" data-cat="Fives">—</td></tr>
+            <tr><td>Sixes</td><td class="score-cell" data-cat="Sixes">—</td></tr>
+
+            <tr class="sep"><td>Subtotal</td><td id="subtotal-score">0</td></tr>
+
+            <!-- Lower Section -->
+            <tr><td>Three of a kind</td><td class="score-cell" data-cat="Three of a kind">—</td></tr>
+            <tr><td>Four of a kind</td><td class="score-cell" data-cat="Four of a kind">—</td></tr>
+            <tr><td>Full House</td><td class="score-cell" data-cat="Full House">—</td></tr>
+            <tr><td>Small Straight</td><td class="score-cell" data-cat="Small Straight">—</td></tr>
+            <tr><td>Large Straight</td><td class="score-cell" data-cat="Large Straight">—</td></tr>
+            <tr><td>Chance</td><td class="score-cell" data-cat="Chance">—</td></tr>
+            <tr><td>Yatzy</td><td class="score-cell" data-cat="Yatzy">—</td></tr>
+
+            <tr class="total"><td>Total</td><td id="total-score">0</td></tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<!-- =========================
+     FOOTER
+     Basic attribution per assignment
+     ========================= -->
+<footer class="site-footer">
+    © 2025 Yatzy Game – CST3106 Assignment 1
+</footer>
+
+<!-- =========================
+     SCRIPT IMPORTS
+     Modular JS implementation:
+     - dice.js handles dice rolling logic
+     - yatzyEngine.js contains scoring logic
+     - yatzyGame.js manages game state
+     ========================= -->
+<script type="module">
+    import { DiceSet } from './js/dice.js';
+    import { YatzyEngine, Categories } from './js/yatzyEngine.js';
+    import { YatzyGame } from './js/yatzyGame.js';
+    import { setupUI } from './script.js';
+
+    setupUI(YatzyGame, DiceSet, YatzyEngine, Categories);
+</script>
