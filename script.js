@@ -86,6 +86,8 @@ export function setupUI(YatzyGame, DiceSet, YatzyEngine, Categories) {
 
     function renderTotals() {
         subtotalEl.textContent = game.engine.upperSubtotal();
+        const bonusEl = document.getElementById('upper-bonus');
+        bonusEl.textContent = game.engine.upperBonus();
         totalEl.textContent    = game.engine.total();
         const finalTotal = game.engine.total();
         if (finalTotal > getHS()) setHS(finalTotal);
@@ -260,21 +262,9 @@ export function setupUI(YatzyGame, DiceSet, YatzyEngine, Categories) {
         });
     });
 
-    // --- End Turn (without scoring) ---
+    // --- End Turn (block if no score chosen) ---
     btnEndTurn.addEventListener('click', () => {
-        // If you want to enforce "must score once per round", block this.
-        game.round++;
-        game.rollsLeft = 3;
-        hasRolledThisRound = false;
-
-        clearHoldUIAndState();
-        renderRolls();
-
-        // Clear any previous highlight until next roll
-        renderScoreTableCells();
-        updateSelectableHighlights();
-
-        btnRoll.disabled = false;
+        alert('Please select a score category to end the round.');
     });
 
     // --- End Game ---

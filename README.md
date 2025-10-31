@@ -1,10 +1,12 @@
-# 🎲 Yatzy Game – Lab05
+# 🎲 Yatzy – Single-Player Game
+CST3106 Assignment 1
 
-## 📌 Overview
-This is a **single-player version** of Yatzy designed as a self-challenge game to achieve the highest possible score.  
-Players roll five dice and fill in categories on the scorecard. The game is based on both luck and strategy, requiring the player to decide wisely which category to score after each roll.
-
+A modular, browser-based single-player implementation of **Yatzy (Yahtzee)** built using **HTML, CSS, and JavaScript ES Modules**.  
+The player rolls dice, holds selected dice between rolls, and fills in 13 scoring categories to achieve the highest score possible.
 ---
+
+## 🚀 How to Run
+Right-click index.html → Open in Browser or use the built-in HTTP Server.
 
 ## 📖 Game Rules
 
@@ -47,26 +49,63 @@ Players roll five dice and fill in categories on the scorecard. The game is base
         - A message: 🎉 Congratulatory if the player beats their high score, 😢 Consolation if not.
 
 ---
+## 🧮 Scoring Summary
 
-## 🛠️ Implementation Notes for Lab05
-- This project focuses on **building mockups** of the game interface.
-- Deliverables include:
-    - A **design system** (colors, fonts, rationale).
-    - A **dice design** (size, shape, color, pips).
-    - A **mockup interface** showing the dice, scoreboard, and controls.
-    - Screenshots to demonstrate the mockups.
+| Category | Description | Points |
+|-----------|--------------|--------|
+| Ones–Sixes | Sum of dice showing that number | Sum |
+| **Bonus** | If upper total ≥ 63 | +35 |
+| 3 of a Kind | At least 3 same dice, sum of all 5 | Total |
+| 4 of a Kind | At least 4 same dice, sum of all 5 | Total |
+| Full House | 3 of one + 2 of another | 25 |
+| Small Straight | Sequence of 4 | 30 |
+| Large Straight | Sequence of 5 | 40 |
+| Chance | Any combination | Sum |
+| Yatzy | All 5 same | 50 |
+
 
 ---
+## 🛠 Implementation Notes
 
+- **ES Module Architecture:**  
+  `index.html` imports modular scripts under `js/`.  
+  `DiceSet`, `YatzyEngine`, and `YatzyGame` handle dice, scoring, and game flow separately.
+
+- **Accessibility:**  
+  All dice and score buttons have `aria-label`s and visible focus states.
+
+- **Responsive Layout:**  
+  Adjusts automatically for mobile screens; controls stack vertically.
+
+- **High Score Persistence:**  
+  Stored in `localStorage` and displayed after each completed game.
+
+- **Animations:**  
+  Dice rolls use CSS transforms for realism; held dice are visually dimmed.
+
+## ✅ Testing Checklist
+
+- [x] Rolls limited to 3 per turn
+- [x] “Hold” toggles dice correctly
+- [x] Category can be scored only once
+- [x] Bonus +35 applies when upper ≥ 63
+- [x] Final score and High Score display correctly
+- [x] Reset clears all data
+- [x] Responsive on mobile screens
 ## 📁 File Structure
 
+
 ```text
-lab05/
-├─ README.md              ← Game rules (this file)
-├─ design_system.md       ← Colors + Fonts + Explanation
-├─ dice1.png              ← Dice design draft
-├─ mockups/               ← Game interface mockups
-│   ├─ index.html
-│   ├─ styles.css
-│   ├─ mockup1.png
-│   └─ mockup2.png
+yatzy/
+├─ js/
+│  ├─ dice.js          # Dice logic and hold/re-roll state
+│  ├─ yatzyEngine.js   # Scoring logic and category evaluation
+│  └─ yatzyGame.js     # Game state, turns, rolls, end of game
+├─ index.html          # Main UI and module imports
+├─ script.js           # UI controller connecting engine and DOM
+├─ styles.css          # Design system, layout, responsive styles
+├─ dice1.jpg           # Dice sprite sheet or image
+├─ design_system.md    # Fonts, colors, component rationale
+├─ README.md           # This documentation
+└─ LICENSE
+

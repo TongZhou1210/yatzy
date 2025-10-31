@@ -280,6 +280,12 @@ body{
     border-top:2px solid var(--border);
     font-weight:600;
 }
+
+#upper-bonus {
+    font-style: italic;
+    color: var(--muted);
+}
+
 .score-table tr.total td{
     border-top:2px solid var(--green-700);
     font-weight:700;
