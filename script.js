@@ -209,7 +209,10 @@ export function setupUI(YatzyGame, DiceSet, YatzyEngine, Categories) {
 
     // --- Roll Dice ---
     btnRoll.addEventListener('click', () => {
-        if (game.getRollsLeft() <= 0) return;
+        if (game.getRollsLeft() <= 0) {
+            alert('No rolls left — please choose a score category.');
+            return;
+        }
 
         // Animate only non-held dice to avoid confusing the player
         diceEls.forEach((d, idx) => {
@@ -271,7 +274,14 @@ export function setupUI(YatzyGame, DiceSet, YatzyEngine, Categories) {
     btnEndGame.addEventListener('click', () => {
         const final = game.endGame();
         renderTotals();
-        alert(`Your final score: ${final}. High Score: ${getHS()}`);
+
+        const beat = final > getHS();
+        alert(
+            beat
+                ? `🎉 New High Score! ${final}`
+                : `Your final score: ${final}. High Score: ${getHS()}`
+        );
+
         hasRolledThisRound = false;
         renderScoreTableCells();
         updateSelectableHighlights();
