@@ -209,7 +209,7 @@ body{
     height:92px;
     border-radius:12px;
     border:1px solid var(--border);
-    background-image:url('./dice1.jpg');
+    background-image:url('dice1.jpg');
     background-size:600% 100%;
     background-position:0 0;
     box-shadow:var(--shadow);

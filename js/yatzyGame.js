@@ -88,11 +88,18 @@ export class YatzyGame {
 
     /**
      * Ends the current round and prepares the next one.
-     * Resets roll count. If all categories filled, ends the game.
+     * Resets roll count and clears all held dice so that
+     * the new round starts with all dice free (same behavior
+     * as Assignment 1 UI logic).
      */
     endTurn() {
         this.round++;
         this.rollsLeft = 3;
+
+        // Clear all held dice for the next round
+        if (Array.isArray(this.dice.held)) {
+            this.dice.held.fill(false);
+        }
 
         const allFilled = [...this.engine.scoreTable.values()].every(v => v !== null);
         if (allFilled) this.endGame();
@@ -106,6 +113,12 @@ export class YatzyGame {
      */
     endGame() {
         this.gameOver = true;
+
+        // Once the game is over there should be no held dice.
+        if (Array.isArray(this.dice.held)) {
+            this.dice.held.fill(false);
+        }
+
         return this.engine.total();
     }
 

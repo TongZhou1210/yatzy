@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Yatzy – Single Player Game</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -129,11 +129,4 @@
      - yatzyEngine.js contains scoring logic
      - yatzyGame.js manages game state
      ========================= -->
-<script type="module">
-    import { DiceSet } from './js/dice.js';
-    import { YatzyEngine, Categories } from './js/yatzyEngine.js';
-    import { YatzyGame } from './js/yatzyGame.js';
-    import { setupUI } from './script.js';
-
-    setupUI(YatzyGame, DiceSet, YatzyEngine, Categories);
-</script>
+<script type="module" src="script.js"></script>
